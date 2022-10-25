@@ -463,30 +463,30 @@ This extension prevents videos from loading on sites that aren't whitelisted. Pu
 *** manifest.json
 
 #+begin_src json :tangle video-block-extension/manifest.json
-{
-    "manifest_version": 2,
-    "name": "Video Block Extension",
-    "description": "Automatically bans all videos except: youtube.com",
-    "version": "0.0.2",
-    "author": "Censored Servant",
-    "browser_specific_settings": {
-	"gecko": {
-	    "id": "videoblock@over.builder"
-	}
-    },
-    "permissions": [
-        "notifications",
-	"<all_urls>",
-	"tabs",
-	"storage",
-	"webRequest",
-	"webRequestBlocking"
-    ],
-    "background": {
-	"persistent": true,
-	"page": "block.html"
-	},
-}
+  {
+      "manifest_version": 2,
+      "name": "Video Block Extension",
+      "description": "Automatically bans all videos except: youtube.com",
+      "version": "0.0.2",
+      "author": "Censored Servant",
+      "browser_specific_settings": {
+          "gecko": {
+              "id": "videoblock@over.builder"
+          }
+      },
+      "permissions": [nnnn
+          "notifications",
+          "<all_urls>",
+          "tabs",
+          "storage",
+          "webRequest",
+          "webRequestBlocking"
+      ],
+      "background": {
+          "persistent": true,
+          "page": "block.html"
+      }
+  }
 #+end_src
 
 *** block.html
@@ -581,27 +581,27 @@ This is "forked" / stolen from [[https://addons.mozilla.org/en-US/firefox/user/1
 *** manifest.json
 
 #+begin_src json :tangle safe-mode-extension/manifest.json
-      {
-          "manifest_version": 2,
-          "name": "Safe Mode Extension",
-          "description": "Enforces safe mode on: youtube.com",
-          "version": "0.0.2",
-          "author": "Censored Servant",
-          "browser_specific_settings": {
-              "gecko": {
-                  "id": "safemode@over.builder"
-              }
-          },
-          "permissions": [
-              "notifications"
-          ],
-          "content_scripts": [{
-              "matches": ["*://*.youtube.com/*"],
-              "run_at": "document_start",
-              "css": ["data/youtube.css"],
-              "js": ["data/youtube.js"]
-          }]
-      }
+  {
+      "manifest_version": 2,
+      "name": "Safe Mode Extension",
+      "description": "Enforces safe mode on: youtube.com",
+      "version": "0.0.2",
+      "author": "Censored Servant",
+      "browser_specific_settings": {
+          "gecko": {
+              "id": "safemode@over.builder"
+          }
+      },
+      "permissions": [
+          "notifications"
+      ],
+      "content_scripts": [{
+          "matches": ["*://*.youtube.com/*"],
+          "run_at": "document_start",
+          "css": ["sites/youtube.css"],
+          "js": ["sites/youtube.js"]
+      }]
+  }
 #+end_src
 
 *** sites
