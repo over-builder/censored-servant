@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+    "name": "Video Block Extension",
+    "description": "Automatically bans all videos except: youtube.com",
+    "version": "0.0.2",
+    "author": "Censored Servant",
+    "browser_specific_settings": {
+	"gecko": {
+	    "id": "videoblock@over.builder"
+	}
+    },
+    "permissions": [
+        "notifications",
+	"<all_urls>",
+	"tabs",
+	"storage",
+	"webRequest",
+	"webRequestBlocking"
+    ],
+    "background": {
+	"persistent": true,
+	"page": "block.html"
+	},
+}

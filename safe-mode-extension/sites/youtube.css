@@ -1,0 +1,2 @@
+/* Menu switch */
+#header + #container > #sections yt-multi-page-menu-section-renderer:last-child #items ytd-compact-link-renderer:last-child {display:none !important}

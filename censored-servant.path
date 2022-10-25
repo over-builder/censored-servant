@@ -1,0 +1,9 @@
+[Unit]
+Description="Monitor the $HOME/Downloads directory of a user for changes."
+
+[Path]
+PathModified=/home/pervert/Downloads
+Unit=censored-servant.service
+
+[Install]
+WantedBy=multi-user.target

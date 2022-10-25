@@ -1,0 +1,5 @@
+[Unit]
+Description="Run a script to delete image and video files from the user's folder."
+
+[Service]
+ExecStart=/usr/local/bin/delete-images-and-videos.sh

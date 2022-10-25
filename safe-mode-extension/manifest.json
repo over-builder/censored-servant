@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "Safe Mode Extension",
+    "description": "Enforces safe mode on: youtube.com",
+    "version": "0.0.2",
+    "author": "Censored Servant",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "safemode@over.builder"
+        }
+    },
+    "permissions": [
+        "notifications"
+    ],
+    "content_scripts": [{
+        "matches": ["*://*.youtube.com/*"],
+        "run_at": "document_start",
+        "css": ["data/youtube.css"],
+        "js": ["data/youtube.js"]
+    }]
+}
