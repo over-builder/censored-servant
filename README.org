@@ -1,5 +1,5 @@
 #+TITLE: censored servant installation script
-#+PROPERTIES: :tangle censored-servant.sh
+#+PROPERTY: header-args :tangle "censored-servant.sh"
 * Introduction
 
 The files in this repo (literately programmed in this org file) are intended to lock Ubuntu to force pury.fi censorship in firefox, automatically delete image and video files you try to download, and make it hard to reverse the changes on a whim. It requires an Ubuntu with a modern ~bash~, >= 4.3.
@@ -272,7 +272,7 @@ This folder doesn't exist for the default install, so we have to create it.
 
 The basic idea here is that we force Firefox to download to a subdirectory of the user's folder (~/Downloads~ is a sensible default) and then run a script to watch for and delete image and video files downloaded to that folder. (Wouldn't it be nice to censor them instead?)
 
-Firefox is now a snap, which has pros and cons. One con is that hacking snaps to do what you want isn't well documented on [[stackexchange.com][Google]]. But we can work around it by changing the permissions granted to the program in ~/var/lib/snapd/apparmor/policies/firefox.firefox.snap~
+Firefox is now a snap, which has pros and cons. One con is that hacking snaps to do what you want isn't well documented on [[stackexchange.com][Google]]. But we can work around it by changing the permissions granted to the program in ~/var/lib/snapd/apparmor/profiles/firefox.firefox.snap~
 
 *** edit the apparmor settings of firefox to prevent downloading
 
