@@ -213,50 +213,59 @@ The script fragments below are meant to be run as root in the order that they ar
 
 *** source of `policies.json'
 
+We use the convention of prepending a ~_~ to a key-value pair in order to disable the setting. Here the installation of the extensions is made mandatory.
+
+Feel free to remove adblock if it messes with your chill.
+
 #+begin_src json :tangle policies.json
-  {
-      "policies": {
-          "BlockAboutConfig": true,
-          "BlockAboutProfiles": true,
-          "BlockAboutSupport": true,
-          "DisableDeveloperTools": true,
-          "DisableSetDesktopBackground": true,
-          "DisablePrivateBrowsing": true,
-          "Extensions": {
-              "Locked": ["pury.fi@pury.fi",
-                         "censored.servant@over.builder"]
-          },
-          "ExtensionSettings": {
-              "_comment": "This format allows the automatic installation of extensions."
-              "pury.fi@pury.fi": {
-                  "_installation_mode": "force_installed",
-                  "_install_url": "need a location for this"
+      {
+          "policies": {
+              "BlockAboutConfig": true,
+              "BlockAboutProfiles": true,
+              "BlockAboutSupport": true,
+              "DisableDeveloperTools": true,
+              "DisableSetDesktopBackground": true,
+              "DisablePrivateBrowsing": true,
+              "Extensions": {
+                  "Locked": ["pury.fi@pury.fi",
+                             "video.blocker@over.builder",
+                             "safemode@over.builder" ]
               },
-              "censored.servant@over.builder": {
-                  "_installation_mode" : "force_installed",
-                  "_install_url": "i can upload this somewhere"
-              },
-              "uBlock0@raymondhill.net": {
-                  "_comment": "I recommend having this automatically installed to prevent leaking nudity from crafty advertisements on porno sites.",
-                  "installation_mode": "force_installed",
-                  "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
-              },
-              "8cfdd449-54b9-45f4-879f-49c53f50d338": {
-                  "_comment": "this is ~Restricted Mode: On~ by Kiko and makes youtube safe.",
-                  "installation_mode": "force_installed",                 "install_url":"https://addons.mozilla.org/firefox/downloads/file/1680498/restricted_mode_on-0.0.1.xpi"
+              "ExtensionSettings": {
+                  "_comment": "This format allows the automatic installation of extensions.",
+                  "pury.fi@pury.fi": {
+                      "_installation_mode": "force_installed",
+                      "_install_url": "need a location for this"
+                  },
+                  "video.blocker@over.builder": {
+                      "_installation_mode" : "force_installed",
+                      "_install_url": "i can upload this somewhere"
+                  },
+                  "safemode@over.builder": {
+                      "_installation_mode" : "force_installed",
+                      "_install_url": "i can upload this somewhere"
+                      },
+                  "uBlock0@raymondhill.net": {
+                      "_comment": "I recommend having this automatically installed to prevent leaking nudity from crafty advertisements on porno sites.",
+                      "installation_mode": "force_installed",
+                      "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+                  }
               }
           }
       }
-  }
 #+end_src
 
 
 *** install `policies.json' into the systemwide mozilla/profiles folder
 
-This installation could probably be done in the local user folder, but I haven't figured out where this code would go in that case.
+This folder doesn't exist for the default install, so we have to create it.
+
+(This installation should probably be done in the local user folder, but I don't think there is a place to put the code that isn't clobbered by updates.
 
 #+begin_src shell
-$cmd cp policies.json /etc/firefox/policies/policies.json
+  $cmd mkdir /etc/firefox
+  $cmd mkdir /etc/firefox/policies
+  $cmd cp policies.json /etc/firefox/policies/policies.json
 #+end_src
 
 ** prevent the downloading of image and video files
@@ -471,10 +480,10 @@ This extension prevents videos from loading on sites that aren't whitelisted. Pu
       "author": "Censored Servant",
       "browser_specific_settings": {
           "gecko": {
-              "id": "videoblock@over.builder"
+              "id": "video.block@over.builder"
           }
       },
-      "permissions": [nnnn
+      "permissions": [
           "notifications",
           "<all_urls>",
           "tabs",

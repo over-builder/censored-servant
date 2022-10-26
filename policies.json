@@ -8,26 +8,27 @@
         "DisablePrivateBrowsing": true,
         "Extensions": {
             "Locked": ["pury.fi@pury.fi",
-                       "censored.servant@over.builder"]
+                       "video.blocker@over.builder",
+                       "safemode@over.builder" ]
         },
         "ExtensionSettings": {
-            "_comment": "This format allows the automatic installation of extensions."
+            "_comment": "This format allows the automatic installation of extensions.",
             "pury.fi@pury.fi": {
                 "_installation_mode": "force_installed",
                 "_install_url": "need a location for this"
             },
-            "censored.servant@over.builder": {
+            "video.blocker@over.builder": {
                 "_installation_mode" : "force_installed",
                 "_install_url": "i can upload this somewhere"
             },
+            "safemode@over.builder": {
+                "_installation_mode" : "force_installed",
+                "_install_url": "i can upload this somewhere"
+                },
             "uBlock0@raymondhill.net": {
                 "_comment": "I recommend having this automatically installed to prevent leaking nudity from crafty advertisements on porno sites.",
                 "installation_mode": "force_installed",
                 "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
-            },
-            "8cfdd449-54b9-45f4-879f-49c53f50d338": {
-                "_comment": "this is ~Restricted Mode: On~ by Kiko and makes youtube safe.",
-                "installation_mode": "force_installed",                 "install_url":"https://addons.mozilla.org/firefox/downloads/file/1680498/restricted_mode_on-0.0.1.xpi"
             }
         }
     }

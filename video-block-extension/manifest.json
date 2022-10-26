@@ -6,10 +6,10 @@
     "author": "Censored Servant",
     "browser_specific_settings": {
         "gecko": {
-            "id": "videoblock@over.builder"
+            "id": "video.block@over.builder"
         }
     },
-    "permissions": [nnnn
+    "permissions": [
         "notifications",
         "<all_urls>",
         "tabs",
