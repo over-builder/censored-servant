@@ -312,7 +312,7 @@ We want to add the following lines:
   # Allow read-only access to all files in @{HOME}.
   owner @{HOME}/[^.]**    r,
   # Allow read-write access to all files in @{HOME}/Downloads
-  owner @{HOME}/Downloads/**  rwixxx
+  owner @{HOME}/Downloads/**  rwilix,
 #+end_src
 
 **** apply the diff
