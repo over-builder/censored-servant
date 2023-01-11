@@ -8,7 +8,7 @@
         "DisablePrivateBrowsing": true,
         "Extensions": {
             "Locked": ["pury.fi@pury.fi",
-                       "video.blocker@over.builder",
+                       "video.block@over.builder",
                        "safemode@over.builder" ]
         },
         "ExtensionSettings": {

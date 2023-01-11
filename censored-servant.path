@@ -1,5 +1,6 @@
 [Unit]
 Description="Monitor the $HOME/Downloads directory of a user for changes."
+StartLimitIntervalSec=0
 
 [Path]
 PathModified=/home/pervert/Downloads

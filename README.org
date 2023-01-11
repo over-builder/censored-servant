@@ -228,7 +228,7 @@ Feel free to remove adblock if it messes with your chill.
               "DisablePrivateBrowsing": true,
               "Extensions": {
                   "Locked": ["pury.fi@pury.fi",
-                             "video.blocker@over.builder",
+                             "video.block@over.builder",
                              "safemode@over.builder" ]
               },
               "ExtensionSettings": {
@@ -272,7 +272,7 @@ This folder doesn't exist for the default install, so we have to create it.
 
 The basic idea here is that we force Firefox to download to a subdirectory of the user's folder (~/Downloads~ is a sensible default) and then run a script to watch for and delete image and video files downloaded to that folder. (Wouldn't it be nice to censor them instead?)
 
-Firefox is now a snap, which has pros and cons. One con is that hacking snaps to do what you want isn't well documented on [[stackexchange.com][Google]]. But we can work around it by changing the permissions granted to the program in ~/var/lib/snapd/apparmor/profiles/firefox.firefox.snap~
+Firefox is now a snap, which has pros and cons. One con is that hacking snaps to do what you want isn't well documented on [[stackexchange.com][Google]]. But we can work around it by changing the permissions granted to the program in ~/var/lib/snapd/apparmor/profiles/snap.firefox.firefox~
 
 *** edit the apparmor settings of firefox to prevent downloading
 
@@ -320,18 +320,21 @@ We want to add the following lines:
 You want to edit this file:
 
 #+begin_src shell
-# /var/lib/snapd/profiles/snap.firefox.firefox
+# /var/lib/snapd/apparmor/profiles/snap.firefox.firefox
 #+end_src
 
 This will be fixed in future versions to apply a diff, but I've mangled the original on my current system and don't know how to use ~diff~ and ~patch~ anyways.
 
 *** use ~systemd~ to automatically delete image and video files within home/Downloads folder
 
+StartLimitIntervalSec=0 makes it go even if we try and download a folder of images.
+
 **** the path
 
 #+begin_src systemd :tangle censored-servant.path
   [Unit]
   Description="Monitor the $HOME/Downloads directory of a user for changes."
+  StartLimitIntervalSec=0
 
   [Path]
   PathModified=/home/pervert/Downloads
@@ -346,6 +349,7 @@ This will be fixed in future versions to apply a diff, but I've mangled the orig
 #+begin_src systemd :tangle censored-servant.service
   [Unit]
   Description="Run a script to delete image and video files from the user's folder."
+  StartLimitIntervalSec=0
 
   [Service]
   ExecStart=/usr/local/bin/delete-images-and-videos.sh 
@@ -376,7 +380,8 @@ This could probably be improved by censoring these images automatically, but it'
   $cmd chmod +x delete-images-and-videos.sh
   $cmd cp delete-images-and-videos.sh /usr/local/bin/delete-images-and-videos.sh
 
-  $cmd cp censored-servant.path /etc/systemd/local/user/
+  $cmd cp censored-servant.path /etc/systemd/system/
+  $cmd cp censored-servant.service /etc/systemd/system/
 #+end_src
 
 *** disable downloading files with other software
@@ -384,9 +389,11 @@ This could probably be improved by censoring these images automatically, but it'
 **** disable curl and wget for unprivileged users
 
 #+begin_src shell
-chmod 750 /bin/curl
-chmod 750 /bin/wget
+$cmd chmod 750 /bin/curl
+$cmd chmod 750 /bin/wget
 #+end_src
+
+(2 copies?)
 
 **** torrents
 
@@ -404,7 +411,37 @@ This doesn't require any extra work.
 
 Obviously, you could download software and install it. We could delete files matching the ~application/*~ mime type being downloaded, but that wouldn't stop installing from source. If we did restrict access to e.g. ~make~ or ~python~ we're going to be making the computer pretty useless for programming and maybe computing in general. ~emacs~ even has a builtin browser.
 
-Open to suggestions about how this can be hardened
+Open to suggestions about how this can be hardened.
+
+** prevent OOM killer from tanking extension
+
+There is a pernicious memory leak that I heard was related to the message passing facility in firefox's implementation of JS workers, or something. I'm a stooge, not a programmer.
+
+Anyways, nohang watches memory usage and forces restarts of firefox if things get ugly. I've set it to 8GB here, because that's a totally sane memory usage figure for your browser, right?
+
+*** install package nohang
+
+#+begin_src shell
+  $cmd apt-add-repository -y ppa:oibaf/test
+  $cmd apt update
+  $cmd apt install nohang
+#+end_src
+
+*** configure package nohang
+
+The documentation for nohang is terrible. I have a vague idea how the config should be modified to make it deal with firefox in particular.
+
+Basically, we edit the config file to make it prefer hanging firefox over everything else. That way, when the worker pigs out, you need to relaunch firefox.
+
+#+begin_src shell
+
+#+end_src
+
+*** enable systemd unit
+
+#+begin_src shell
+$cmd systemctl enable --now nohang-desktop.service
+#+end_src
 
 ** password protect grub
 

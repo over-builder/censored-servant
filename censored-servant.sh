@@ -118,10 +118,19 @@ $cmd cp policies.json /etc/firefox/policies/policies.json
 $cmd chmod +x delete-images-and-videos.sh
 $cmd cp delete-images-and-videos.sh /usr/local/bin/delete-images-and-videos.sh
 
-$cmd cp censored-servant.path /etc/systemd/local/user/
+$cmd cp censored-servant.path /etc/systemd/system/
+$cmd cp censored-servant.service /etc/systemd/system/
 
-chmod 750 /bin/curl
-chmod 750 /bin/wget
+$cmd chmod 750 /bin/curl
+$cmd chmod 750 /bin/wget
+
+$cmd apt-add-repository -y ppa:oibaf/test
+$cmd apt update
+$cmd apt install nohang
+
+
+
+$cmd systemctl enable --now nohang-desktop.service
 
 cat<<EOF
 set superusers:"puryfier","root"
